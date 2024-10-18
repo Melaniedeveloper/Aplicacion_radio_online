@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="cs">
+	<head>
+		<style>
+			  .contenedor {
+            display: flex;
+            justify-content: center; /* Alinea horizontalmente */
+            align-items: center;    /* Alinea verticalmente */
+            height: 20vh;         /* 100% de la altura de la ventana */
+            overflow: hidden;       /* Para ocultar el texto cuando sale del contenedor */
+        }
+
+        .texto {
+            display: inline-block; /* Para que la animación funcione correctamente */
+            animation: mover 20s linear infinite; /* Llama a la animación */
+        }
+
+        @keyframes mover {
+            0% {
+                transform: translateX(-100%); /* Comienza fuera a la izquierda */
+            }
+            50% {
+                transform: translateX(100%); /* Se mueve a la derecha */
+            }
+            100% {
+                transform: translateX(-100%); /* Regresa a la posición inicial */
+            }
+        }
+		</style>
+		<title> Radio Online </title>
+		<meta name="author" content="Miraficus">
+		<meta name="theme-color" content="#cccccc">
+		<meta charset="utf-8">
+		<link rel="icon" id="icon" href="assets/favicon_black.svg" sizes="any" type="image/svg+xml" media="(prefers-color-scheme:no-preference)" />		
+		<link rel="icon" id="icon" href="assets/favicon_black.svg" sizes="any" type="image/svg+xml" media="(prefers-color-scheme:light)" />
+		<link rel="icon" id="icon" href="assets/favicon_white.svg" sizes="any" type="image/svg+xml" media="(prefers-color-scheme:dark)" />
+		<link rel="stylesheet" type="text/css" href="css/base.css">
+		<link rel="manifest" href="manifest.json" />
+		<meta name="mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="application-name" content="Radio Online" />
+		<meta name="apple-mobile-web-app-title" content="Radio Online" />
+		<meta name="msapplication-starturl" content="/index.html" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, viewport-fit=cover">
+		<script src="https://code.jquery.com/jquery-3.7.1.js" type="text/javascript"></script>
+		<script type="text/javascript">
+			if (window.document.documentMode) {
+				  alert("Please use better Chromium or Firefox based web browser!\nProsím použijte webový prohližeč založený na Chromiu nebo Firefox!");
+			}
+
+		</script>
+		<script type="text/javascript">
+			
+			// 21.6.2022 Was this Thing made!
+			// --- Get the root element ---
+			var rootvar = document.querySelector(':root');
+
+			// --- Change theme ---
+				// Why doesnt this work? themechoice always null
+			var choice = document.getElementById("themechoice");
+			console.log("themechoice:", choice);
+
+			function themechange() {
+				var theme = document.getElementById("themechoice").value;
+				console.log(theme);
+
+				switch(theme) {
+				case 'light':
+					console.log("Theme Light");
+					rootvar.style.setProperty('--main-bg-color', 'white');
+					rootvar.style.setProperty('--sec-bg-color', 'white');
+					rootvar.style.setProperty('--ter-bg-color', 'white');
+					rootvar.style.setProperty('--accent-bg-color', 'lightblue');
+					rootvar.style.setProperty('--hover-bg-color', '#7bb9cd');
+					rootvar.style.setProperty('--main-text-color', 'black');
+					rootvar.style.setProperty('--sec-text-color', 'black');
+					rootvar.style.setProperty('--shadow-color', '#555555');
+					rootvar.style.setProperty('--accent-border-color', 'transparent');
+					rootvar.style.setProperty('color-scheme', 'light');
+				break;
+				case 'dark':
+					console.log("Theme Dark");
+					rootvar.style.setProperty('--main-bg-color', '#222222');
+					rootvar.style.setProperty('--sec-bg-color', '#222222');
+					rootvar.style.setProperty('--ter-bg-color', '#222222');
+					rootvar.style.setProperty('--accent-bg-color', 'black');
+					rootvar.style.setProperty('--hover-bg-color', '#1c1c1c');
+					rootvar.style.setProperty('--main-text-color', 'white');
+					rootvar.style.setProperty('--sec-text-color', 'white');
+					rootvar.style.setProperty('--shadow-color', 'black');
+					rootvar.style.setProperty('--accent-border-color', 'transparent');
+					rootvar.style.setProperty('color-scheme', 'dark');
+				break;
+				case 'black':
+					console.log("Theme Black");
+					rootvar.style.setProperty('--main-bg-color', 'black');
+					rootvar.style.setProperty('--sec-bg-color', 'black');
+					rootvar.style.setProperty('--ter-bg-color', 'black');
+					rootvar.style.setProperty('--accent-bg-color', '#222222');
+					rootvar.style.setProperty('--hover-bg-color', '#444444');
+					rootvar.style.setProperty('--main-text-color', 'white');
+					rootvar.style.setProperty('--sec-text-color', 'white');
+					rootvar.style.setProperty('--shadow-color', 'black');
+					rootvar.style.setProperty('--accent-border-color', '#888888');
+					rootvar.style.setProperty('color-scheme', 'dark');
+				break;
+				case 'blue':
+					console.log("Theme Blue");
+					rootvar.style.setProperty('--main-bg-color', '#0A1929');
+					rootvar.style.setProperty('--sec-bg-color', '#173A5E');
+					rootvar.style.setProperty('--ter-bg-color', '#173A5E');
+					rootvar.style.setProperty('--accent-bg-color', '#5090D3');
+					rootvar.style.setProperty('--hover-bg-color', '#66B2FF');
+					rootvar.style.setProperty('--main-text-color', 'white');
+					rootvar.style.setProperty('--sec-text-color', 'white');
+					rootvar.style.setProperty('--shadow-color', 'black');
+					rootvar.style.setProperty('--accent-border-color', 'transparent');
+					rootvar.style.setProperty('color-scheme', 'light');
+				break;
+				default:
+					console.log("No Theme");
+				break;
+				}
+				
+
+				
+			}
+			
+
+		</script>
+	</head>
+	<body>
+		<div class="header">
+			<a onclick="alert('Verze 1.2');" id="left">Radio</a>
+			<select name="themechoice" id="themechoice" onchange="themechange();">
+				<option value="light" selected>Světlý</option>
+			 	<option value="dark">Tmavý</option>
+				<option value="black">Černý</option>
+				<option value="blue">Modrý</option>
+			</select>
+			<p></p>
+			<a href="https://simulatorradio.stream/" id="right" target="_blank">SIMULADOR DE EMISORA DIRECTO</a>
+		</div>
+		<div class="contenedor">
+			<div class="texto"><h1>BIENVENIDO A LA SECCION DE RADIOS INTERNACIONALES</h1></div>
+		</div>
+		<div class="player" id="player">
+			<p id="player-name">Krokodýl</p>
+			<audio controls preload="none" id="audio">
+				<source id="player-src" src="https://icecast4.play.cz/krokodyl128.mp3" type="audio/mpeg">
+				El elemento de audio no es compatible
+			</audio>
+			<input type="checkbox" id="autoplay" size="50">
+			<label for="autoplay">Reproduccion directa</label>
+		</div>
+
+		<div class="wrapper">
+			<div class="radio-list">
+				<ul>
+					<li><a onclick="beat();">Radio Beat</a></li>
+					<li><a onclick="casrock();">Radio Čas Rock</a></li>
+					<li><a onclick="country();">Country Radio</a></li>
+					<li><a onclick="evropa();">Radio Evropa2</a></li>
+					<li><a onclick="fajnradio();">Fajn Radio</a></li>
+					<li><a onclick="free();">Free Radio</a></li>
+					<li><a onclick="frekvence();">Radio Frekvence 1</a></li>
+					<li><a onclick="hey();">Radio Hey</a></li>
+					<li><a onclick="city();">Hitradio City</a></li>
+					<li><a onclick="impuls();">Radio Impuls</a></li>
+					<li><a onclick="kiss();">Radio KissHady</a></li>
+					<li><a onclick="krokodyl();">Radio Krokodýl</a></li>
+					<li><a onclick="metalheart();">Metal Heart Radio</a></li>
+					<li><a onclick="oldies();">Oldies Radio</a></li>
+					<li><a onclick="rockradio();">Rockovy Radio</a></li>
+					<li><a onclick="rockradioalt();">Rockovy Radio - Alternative</a></li>
+					<li><a onclick="heavyrockradio();">Rockovy Radio - Hard & Heavy</a></li>
+					<li><a onclick="simulator();">Simulator Radio</a></li>
+					<li><a onclick="simrock();">Simulator Radio Rock</a></li>
+					<li><a onclick="simdance();">Simulator Radio Dance</a></li>
+				</ul>
+
+				<div class="radio-icon">
+					<img src="https://raw.githubusercontent.com/miraficus/RadioPlayer/main/docs/assets/covers/Czech/Beat.svg" alt="Radio Beat" onclick="beat();"/>
+					<a onclick="beat();">Radio Beat</a>
+				</div>
+
+				<div class="radio-icon">
+					<img src="https://raw.githubusercontent.com/miraficus/RadioPlayer/main/docs/assets/covers/Czech/CasRock.png" alt="Radio Čas Rock" onclick="casrock();"/>
+					<a onclick="casrock();">Radio Čas Rock</a>
+				</div>
+
+				<div class="radio-icon">
+					<img src="https://raw.githubusercontent.com/miraficus/RadioPlayer/main/docs/assets/covers/Czech/CountryRadio.png" alt="Country Radio" onclick="country();"/>
+					<a onclick="country();">Country Radio</a>
+				</div>
+
+				<div class="radio-icon">
+					<img src="https://raw.githubusercontent.com/miraficus/RadioPlayer/main/docs/assets/covers/Czech/Evropa2.svg" alt="Radio Evropa2" onclick="evropa();"/>
+					<a onclick="evropa();">Radio Evropa2</a>
+				</div>
+
+				<div class="radio-icon">
+					<img src="https://raw.githubusercontent.com/miraficus/RadioPlayer/main/docs/assets/covers/Czech/Fajnradio.svg" alt="Fajn Radio" onclick="fajnradio();"/>
+					<a onclick="fajnradio();">Fajn Radio</a>
+				</div>
+
+				<div class="radio-icon">
+					<img src="https://raw.githubusercontent.com/miraficus/RadioPlayer/main/docs/assets/covers/Czech/Freeradio.svg" alt="Free Radio" onclick="free();"/>
+					<a onclick="free();">Free Radio</a>
+				</div>
+
+				<div class="radio-icon">
+					<img src="https://raw.githubusercontent.com/miraficus/RadioPlayer/main/docs/assets/covers/Czech/Frekvence1.svg" alt="Radio Frekvence 1" onclick="frekvence();"/>
+					<a onclick="frekvence();">Radio Frekvence 1</a>
+				</div>
+
+				<div class="radio-icon">
+					<img src="https://raw.githubusercontent.com/miraficus/RadioPlayer/main/docs/assets/covers/Czech/RadioHey.svg" alt="Radio Hey" onclick="hey();"/>
+					<a onclick="hey();">Radio Hey</a>
+				</div>
+
+				<div class="radio-icon">
+					<img src="https://raw.githubusercontent.com/miraficus/RadioPlayer/main/docs/assets/covers/Czech/HitradioCity.svg" alt="Hitradio City" onclick="city();"/>
+					<a onclick="city();">Hitradio City</a>
+				</div>
+
+				<div class="radio-icon">
+					<img src="https://raw.githubusercontent.com/miraficus/RadioPlayer/main/docs/assets/covers/Czech/Impuls.svg" alt="Radio Impuls" onclick="impuls();"/>
+					<a onclick="impuls();">Radio Impuls</a>
+				</div>
+
+				<div class="radio-icon">
+					<img src="https://raw.githubusercontent.com/miraficus/RadioPlayer/main/docs/assets/covers/Czech/Kiss.svg" alt="Radio KissHady" onclick="kiss();"/>
+					<a onclick="kiss();">Radio KissHady</a>
+				</div>
+
+				<div class="radio-icon">
+					<img src="https://raw.githubusercontent.com/miraficus/RadioPlayer/main/docs/assets/covers/Czech/Krokodyl.svg" alt="Radio Krokodýl" onclick="krokodyl();"/>
+					<a onclick="krokodyl();">Radio Krokodýl</a>
+				</div>
+
+				<div class="radio-icon">
+					<img src="https://raw.githubusercontent.com/miraficus/RadioPlayer/main/docs/assets/covers/Czech/MetalHeart.png" alt="Metal Heart Radio" onclick="metalheart();"/>
+					<a onclick="metalheart();">Metal Heart Radio</a>
+				</div>
+
+				<div class="radio-icon">
+					<img src="https://raw.githubusercontent.com/miraficus/RadioPlayer/main/docs/assets/covers/Czech/Oldies.svg" alt="Oldies Radio" onclick="oldies();"/>
+					<a onclick="oldies();">Oldies Radio</a>
+				</div>
+
+				<div class="radio-icon">
+					<img src="https://raw.githubusercontent.com/miraficus/RadioPlayer/main/docs/assets/covers/Czech/RockRadio.svg" alt="Rockovy Radio" onclick="rockradio();"/>
+					<a onclick="rockradio();">Rockovy Radio</a>
+				</div>
+
+				<div class="radio-icon">
+					<img src="https://raw.githubusercontent.com/miraficus/RadioPlayer/main/docs/assets/covers/Czech/RockRadioAlternative.svg" alt="Rockovy Radio - Alternative" onclick="rockradioalt();"/>
+					<a onclick="rockradioalt();">Rockovy Radio <br> Alternative</a>
+				</div>
+
+				<div class="radio-icon">
+					<img src="https://raw.githubusercontent.com/miraficus/RadioPlayer/main/docs/assets/covers/Czech/RockRadioHardAHeavy.svg" alt="Rockovy Radio - Hard & Heavy" onclick="heavyrockradio();"/>
+					<a onclick="heavyrockradio();">Rockovy Radio <br> Hard & Heavy</a>
+				</div>
+
+				<div class="radio-icon">
+					<img src="https://raw.githubusercontent.com/miraficus/RadioPlayer/main/docs/assets/covers/English/SimulatorRadio.png" alt="Free Radio" onclick="simulator();"/>
+					<a onclick="simulator();">Simulator Radio</a>
+				</div>
+
+				<div class="radio-icon">
+					<img src="https://raw.githubusercontent.com/miraficus/RadioPlayer/main/docs/assets/covers/English/SimulatorRadio2.png" alt="Free Radio" onclick="simrock();"/>
+					<a onclick="simrock();">Simulator Radio Rock</a>
+				</div>
+
+				<div class="radio-icon">
+					<img src="https://raw.githubusercontent.com/miraficus/RadioPlayer/main/docs/assets/covers/English/SimulatorRadio3.png" alt="Free Radio" onclick="simdance();"/>
+					<a onclick="simdance();">Simulator Radio Dance</a>
+				</div>
+
+
+
+
+			</div>
+
+
+		</div>
+		<div class="footer">
+			<p id="year"></p>
+			<script type="text/javascript">document.getElementById("year").innerHTML = "© "+new Date().getFullYear();</script>
+		</div>
+		<script type="text/javascript">
+		
+			// --- Switch audio sources ---
+			
+			function checkautoplay() {
+				if (document.getElementById('autoplay').checked) {
+	            	console.log("Autoplay Checked");
+	            	var playersource = document.getElementById("audio").play();
+		        } else {
+		            console.log("Autoplay Unchecked");
+		        }
+			}
+
+			function changebitrate() {
+
+			}
+
+			function changestation() {
+				var timenow = new Date();
+				var playername = document.getElementById("player-name").innerHTML = stationname;
+				var linkandtime = link + "?time=" + timenow.getTime();
+			    var playersource = document.getElementById("player-src").src = linkandtime;
+			    var playersource = document.getElementById("audio").load();
+			    checkautoplay();
+			}
+
+			function krokodyl() {
+			    console.log("Krokodyl");
+			    stationname = "Krokodýl";
+			    link = "https://icecast4.play.cz/krokodyl128.mp3";
+			    changestation();
+			}
+
+			function kiss() {
+			    console.log("Kiss");
+			    stationname = "KissHady";
+			    link = "https://ice5.abradio.cz/kiss128.mp3";
+				changestation();
+			}
+
+			function free() {
+			    console.log("Free");
+			    stationname = "Free Radio";
+			    link = "https://icecast8.play.cz/freeradio128.mp3";
+				changestation();
+			}
+
+			function evropa() {
+			    console.log("Evropa2");
+			    stationname = "Evropa2";
+			    link = "https://ice.actve.net/fm-evropa2-128";
+				changestation();
+			}
+
+			function beat() {
+			    console.log("Beat");
+			    stationname = "Beat";
+			    link = "https://ice6.abradio.cz/beat128.aac";
+				changestation();
+			}
+
+			function impuls() {
+			    console.log("Impuls");
+			    stationname = "Impuls";
+			    link = "https://icecast1.play.cz/impuls128.mp3";
+				changestation();
+			}
+
+			function fajnradio() {
+			    console.log("Fajn Radio");
+			    stationname = "Fajn Radio";
+			    link = "https://playerservices.streamtheworld.com/api/livestream-redirect/FAJN_RADIO.aac";
+				changestation();
+			}
+
+			function rockradio() {
+			    console.log("RockRadio");
+			    stationname = "Rockovy Radio";
+			    link = "https://playerservices.streamtheworld.com/api/livestream-redirect/ROCK_RADIO.aac";
+				changestation();
+			}
+
+			function heavyrockradio() {
+			    console.log("Rockradio - Hard & Heavy");
+			    stationname = "Rockovy Radio - Hard & Heavy";
+			    link = "https://ice2.abradio.cz/metalomanie128.aac";
+				changestation();
+			}
+
+			function rockradioalt() {
+			    console.log("Rockradio - Alternative");
+			    stationname = "Rockovy Radio - Alternative";
+			    link = "https://ice2.abradio.cz/znamkapunku128.aac";
+				changestation();
+			}
+
+			function hey() {
+			    console.log("Radio Hey");
+			    stationname = "Radio Hey";
+			    link = "https://icecast3.play.cz/hey-radio128.mp3";
+				changestation();
+			}
+
+			function oldies() {
+			    console.log("Oldies Radio");
+			    stationname = "Oldies Radio";
+			    link = "https://ice2.abradio.cz/oldiesradio128.aac";
+				changestation();
+			}
+
+			function city() {
+			    console.log("Hitradio City");
+			    stationname = "Hitradio City";
+			    link = "https://playerservices.streamtheworld.com/api/livestream-redirect/HITRADIO_CITY_PRAHA.aac";
+				changestation();
+			}
+
+			function frekvence() {
+			    console.log("Radio Frekvence 1");
+			    stationname = "Radio Frekvence 1";
+			    link = "https://25703.live.streamtheworld.com/FREKVENCE1AAC.aac";
+				changestation();
+			}
+
+			function casrock() {
+			    console.log("Radio Čas Rock");
+			    stationname = "Radio Čas Rock";
+			    link = "https://icecast7.play.cz/casrock128.mp3";
+				changestation();
+			}
+
+			function metalheart() {
+			    console.log("Metal Heart Radio");
+			    stationname = "Metal Heart Radio";
+			    link = "http://cz.radio-streamhosting.com:8000/metalheartradio128mp3";
+				changestation();
+			}
+
+			function country() {
+			    console.log("Country Radio");
+			    stationname = "Country Radio";
+			    link = "https://n10a-eu.rcs.revma.com/h7rwanvb938uv";
+				changestation();
+			}
+
+			// Simulator Radio Sources
+
+			function simulator() {
+			    console.log("Simulator");
+			    stationname = "Simulator";
+			    link = "https://simulatorradio.stream/stream";
+				changestation();
+			}
+
+			function simrock() {
+			    console.log("Simulator Rock");
+			    stationname = "Simulator Rock";
+			    link = "https://simulatorradio.stream/rock.mp3";
+				changestation();
+			}
+
+			function simdance() {
+			    console.log("Simulator Dance");
+			    stationname = "Simulator Dance";
+			    link = "https://simulatorradio.stream/dance.mp3";
+				changestation();
+			}
+
+
+		</script>
+	</body>
+</html>
